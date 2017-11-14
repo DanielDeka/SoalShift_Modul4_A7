@@ -128,3 +128,10 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset, stru
 		return res;
 	}
 }
+
+static struct fuse_operations xmp_oper = 
+{
+	.getattr = xmp_getattr,
+	.readdir = xmp_readdir,
+	.read = xmp_read,
+};
