@@ -72,3 +72,23 @@ static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 	closedir(dp);
 	return 0;
 }
+
+static int xmp_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_into *fi)
+{
+	int fd;
+	int res;
+	char fpath[1000];
+	sprintf(fpath,"%s%s",dirpath,path);
+
+	(void) fi;
+
+	char ext[1000];
+	int i;
+	for(i=0; i<strlen(fpath)&&fpath[i]!='.';i++); // membaca ekstensi filenya
+		strcpy(ext, fpath+i);
+
+	char cmd[1000];
+
+	fd = open(fpath, O_RDONLY);
+	if(fd == -1)
+		return -errno;
