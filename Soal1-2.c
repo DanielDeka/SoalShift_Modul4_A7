@@ -92,3 +92,39 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset, stru
 	fd = open(fpath, O_RDONLY);
 	if(fd == -1)
 		return -errno;
+	else
+	{
+		if(strcmp(ext,".c")==0 || strcmp(ext,".3gp")==0||strcmp(ext,".doc")==0 || strcmp(ext, ".ditandai")==0)
+		{
+			system("zenity --width 400 --error --title 'Error' --text 'Terjadi kesalahan! File berisi konten berbahaya.'"); //Menampilkan dialog box error ketika file diakses
+			char from[1000], to[1000], newFolder[1000], filename[1000]; 
+			strcpy(newFolder,fpath); //mengambil direktori dari file
+
+			for(i=strlen(newFolder)-1;newFolder[i]!='/';newFolder[i--]=0); //hapus filenamenya dan tambah "rahasia"
+				strcat(newFolder,"rahasia");
+
+			for(i=strlen(fpath)-1;fpath[i]!='/';i--); //+1 untuk menghilangkan tanda '/'
+				strcpy(filename,fpath+(i+1)); 
+
+			struct stat s;
+			if (stat(newFolder, &s)!=0) //jika folder tidak ada berarti 0
+				mkdir(newFolder,0777); //mkdir 'rahasia' ke direktori mountnya
+
+			sprintf(from, "%s",fpath); //ambil path file awal
+			sprintf(to, "%s%s.ditandai",newFolder,filename); //buat pathnya ke "rahasia" dan tambah ekstensi ditandai
+
+			sprintf(cmd,"mv %s%s",from,to); //pindah filenya
+
+			system (cmd);
+			return -errno;
+
+			res = pread(fd, buf, size, offset);
+			if(res==-1)
+				res = -errno;
+
+			close(fd);
+		}
+
+		return res;
+	}
+}
