@@ -115,11 +115,10 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset, stru
 	}
 }
 
-static struct fuse_operations xmp_oper = 
-{
-	.getattr = xmp_getattr,
-	.readdir = xmp_readdir,
-	.read = xmp_read,
+static struct fuse_operations xmp_oper = {
+	.getattr	= xmp_getattr,
+	.readdir	= xmp_readdir,
+	.read		= xmp_read,
 };
 
 int main(int argc, char *argv[])
