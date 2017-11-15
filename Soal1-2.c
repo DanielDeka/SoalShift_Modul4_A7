@@ -27,7 +27,7 @@ static const char *dirpath = "/home/daniel/Downloads";
 static int xmp_getattr(const char *path, struct stat *stbuf)
 {
 	int res;
-	car fpath[1000];
+	char fpath[1000];
 	sprintf(fpath,"%s%s",dirpath,path);
 	res = lstat(fpath,stbuf);
 
