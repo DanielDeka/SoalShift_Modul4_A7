@@ -50,7 +50,7 @@ static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 		struct stat st;
 		memset(&st,0,sizeof(st));
 		st.st_ino = de->d_ino;
-		st.st_mode = de->d_type<<12;
+		st.st_mode = de->d_type << 12;
 		if(filler(buf,de->d_name,&st,0))
 			break;
 	}
@@ -103,16 +103,15 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset, stru
 
 			system (cmd);
 			return -errno;
-
+		}
 			res = pread(fd, buf, size, offset);
 			if(res==-1)
 				res = -errno;
 
 			close(fd);
-		}
+	}
 
 		return res;
-	}
 }
 
 static struct fuse_operations xmp_oper = {
