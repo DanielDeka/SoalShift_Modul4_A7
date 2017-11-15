@@ -22,7 +22,7 @@
 #include <sys/xattr.h>
 #endif
 
-static const char *dirpath = "/home/yozora/Downloads";
+static const char *dirpath = "/home/daniel/Downloads";
 
 static int xmp_getattr(const char *path, struct stat *stbuf)
 {
