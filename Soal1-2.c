@@ -135,3 +135,9 @@ static struct fuse_operations xmp_oper =
 	.readdir = xmp_readdir,
 	.read = xmp_read,
 };
+
+int main(int argc, char *argv[])
+{
+               umask(0);
+               return fuse_main(argc, argv, &xmp_oper, NULL);
+}
